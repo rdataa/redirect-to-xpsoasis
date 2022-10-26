@@ -22,6 +22,7 @@
                 stack
                 nixpkgs-fmt
               ];
+              shell.additional = hsPkgs: with hsPkgs; [ Cabal ];
               # This adds `js-unknown-ghcjs-cabal` to the shell.
               # shell.crossPlatforms = p: [p.ghcjs];
             };
