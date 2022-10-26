@@ -35,7 +35,9 @@
     in flake // {
       # Built by `nix build .`
       # packages.${system}.default = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
-      defaultPackage = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
+      packages = flake.packages // {
+        default = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
+      };
     });
   # --- Flake Local Nix Configuration ----------------------------
   nixConfig = {
