@@ -38,6 +38,7 @@
       packages = flake.packages // {
         default = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
       };
+      apps = flake.apps // { default = flake.apps."redirect-to-xpsoasis:exe:redirect-to-xpsoasis"; };
     });
   # --- Flake Local Nix Configuration ----------------------------
   nixConfig = {
