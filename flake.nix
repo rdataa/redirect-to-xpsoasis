@@ -10,6 +10,9 @@
   };
   outputs = { self, nixpkgs, flake-utils, haskellNix }:
     let
+      nixosModules = flake-utils-plus.lib.exportModules (
+        nixpkgs.lib.mapAttrsToList (name: value: ./nixosModules/${name}) (builtins.readDir ./nixosModules)
+      );
       overlays = [ haskellNix.overlay
         (final: prev: {
           redirect-to-xpsoasis =
