@@ -8,7 +8,7 @@
     url = "github:serokell/deploy-rs";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = { self, nixpkgs, flake-utils, haskellNix }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, haskellNix, deploy-rs, flake-utils-plus }:
     let
       nixosModules = flake-utils-plus.lib.exportModules (
         nixpkgs.lib.mapAttrsToList (name: value: ./nixosModules/${name}) (builtins.readDir ./nixosModules)
@@ -35,6 +35,33 @@
       ];
       pkgs = import nixpkgs { system = "x86_64-linux"; inherit overlays; inherit (haskellNix) config; };
       flake = pkgs.redirect-to-xpsoasis.flake {};
+      flake-deploy-rs = flake-utils-plus.lib.mkFlake {
+        inherit self inputs nixosModules;
+
+        hosts = {
+          hetzner.modules = with nixosModules; [
+            redirect-to-xpsoasis
+            common
+            admin
+            hardware-hetzner
+          ];
+        };
+
+        deploy.nodes = {
+          my-node = {
+            hostname = "127.0.0.1";
+            fastConnection = false;
+            profiles = {
+              my-profile = {
+                sshUser = "admin";
+                path =
+                  inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.hetzner;
+                user = "root";
+              };
+            };
+          };
+        };
+      };
 
     in flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: flake // {
         packages = flake.packages // {
