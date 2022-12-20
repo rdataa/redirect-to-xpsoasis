@@ -8,3 +8,13 @@
 /robots.txt RobotsR GET
 
 / HomeR GET POST
+
+/download DownloadR GET
+
+/forum/aanalyzer_users                                            ForumUsersR GET
+/forum/general_topics                                             ForumGeneralTopicsR GET
+/fitting_database                                                 FittingDatabaseR GET POST
+/aanalyzer_manual                                    AAnalyzerR GET
+/FAQs                                                AllFaqsR GET
+/xpsgeometry                                         XPSGeometryR GET
+/aaligner                                            AAlignerR GET

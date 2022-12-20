@@ -1,0 +1,10 @@
+<!-- Page Contents -->
+
+<div .container>
+$if (Just HomeR == mcurrentRoute)
+    ^{widget}
+$else
+    <div .container>
+        <div .row>
+            <div .col-md-12>
+                ^{widget}

@@ -14,14 +14,14 @@
       wantedBy = [ "multi-user.target" "nginx.service" ];
       after = [ "network.service" "local-fs.target" ];
       environment = {
-        YESOD_STATIC_DIR="/home/admin/redirect-to-xpsoasis/static";
+        YESOD_STATIC_DIR="/home/xpsoasis/redirect-to-xpsoasis/static";
         YESOD_PORT="3000";
         YESOD_APPROOT="https://rdataa.com";
       };
       serviceConfig = {
         Type = "simple";
         User = "admin";
-        WorkingDirectory = "/home/admin/redirect-to-xpsoasis";
+        WorkingDirectory = "/home/xpsoasis/redirect-to-xpsoasis";
         ExecStart = ''${pkgs.redirect-to-xpsoasis-wrapper}/bin/redirect-to-xpsoasis-wrapped'';
         ExecStop = "";
         Restart = "always";
@@ -29,7 +29,7 @@
     };
 
     security.acme.acceptTerms = true;
-    security.acme.defaults.email = "...";
+    security.acme.defaults.email = "enriquead@rdataa.com";
 
     services.nginx = {
       enable = true;
@@ -61,6 +61,7 @@
     };
 
     environment.systemPackages = with pkgs; [
+      openssh
       git
       msmtp
       vim

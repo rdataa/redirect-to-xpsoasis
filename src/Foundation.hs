@@ -70,7 +70,6 @@ instance Yesod App where
     defaultLayout widget = do
         master <- getYesod
         mmsg <- getMessage
-
         mcurrentRoute <- getCurrentRoute
 
         (title, parents) <- breadcrumbs
@@ -90,11 +89,19 @@ instance Yesod App where
         :: Route App  -- ^ The route the user is visiting.
         -> Bool       -- ^ Whether or not this is a "write" request.
         -> Handler AuthResult
-    isAuthorized (AuthR _) _   = return Authorized
-    isAuthorized HomeR _       = return Authorized
-    isAuthorized FaviconR _    = return Authorized
-    isAuthorized RobotsR _     = return Authorized
-    isAuthorized (StaticR _) _ = return Authorized
+    isAuthorized (AuthR _) _           = return Authorized
+    isAuthorized HomeR _               = return Authorized
+    isAuthorized FaviconR _            = return Authorized
+    isAuthorized RobotsR _             = return Authorized
+    isAuthorized (StaticR _) _         = return Authorized
+    isAuthorized DownloadR _           = return Authorized
+    isAuthorized ForumUsersR _         = return Authorized
+    isAuthorized ForumGeneralTopicsR _ = return Authorized
+    isAuthorized FittingDatabaseR _    = return Authorized
+    isAuthorized AAnalyzerR _          = return Authorized
+    isAuthorized AllFaqsR _            = return Authorized
+    isAuthorized XPSGeometryR _        = return Authorized
+    isAuthorized AAlignerR _           = return Authorized
 
     addStaticContent
         :: Text  -- ^ The file extension
