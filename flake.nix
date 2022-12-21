@@ -62,7 +62,7 @@
         # Change these parameters to server parameters.
         deploy.nodes = {
           my-node = {
-            hostname = "";
+            hostname = "65.109.136.226";
             fastConnection = false;
             profiles = {
               my-profile = {
