@@ -13,47 +13,46 @@
       nixosModules = flake-utils-plus.lib.exportModules (
         nixpkgs.lib.mapAttrsToList (name: value: ./nixosModules/${name}) (builtins.readDir ./nixosModules)
       );
-      overlays = [ haskellNix.overlay
-        (final: prev: {
-          redirect-to-xpsoasis =
-            final.haskell-nix.project' {
-              src = ./.;
-              # `cabal`, `hlint` and `haskell-language-server`
-              shell.tools = {
-                cabal = {};
-                haskell-language-server = {};
-              };
-              shell.buildInputs = with pkgs; [
-                stack
-                nixpkgs-fmt
-                postgresql
-                nixUnstable
-                inputs.deploy-rs.defaultPackage.x86_64-linux
-              ];
-              shell.additional = hsPkgs: with hsPkgs; [ Cabal ];
-              # This adds `js-unknown-ghcjs-cabal` to the shell.
-              # shell.crossPlatforms = p: [p.ghcjs];
-            };
-          redirect-to-xpsoasis-wrapper = pkgs.writeShellApplication {
-            name = "redirect-to-xpsoasis-wrapped";
-            runtimeInputs = [ self.packages.x86_64-linux.default ];
-            text = ''
-             cd /home/admin
-             [ ! -d "/home/admin/redirect-to-xpsoasis" ] && git clone https://github.com/rdataa/redirect-to-xpsoasis
-             cd redirect-to-xpsoasis
-             ${self.packages.x86_64-linux.default}/bin/redirect-to-xpsoasis
-            '';
-          };
-        })
-      ];
-      pkgs = import nixpkgs { system = "x86_64-linux"; inherit overlays; inherit (haskellNix) config; };
-      flake = pkgs.redirect-to-xpsoasis.flake {};
+      # overlays = [ haskellNix.overlay
+      #   (final: prev: {
+      #     redirect-to-xpsoasis =
+      #       final.haskell-nix.project' {
+      #         src = ./.;
+      #         shell.tools = {
+      #           cabal = {};
+      #           haskell-language-server = {};
+      #         };
+      #         shell.buildInputs = with pkgs; [
+      #           stack
+      #           nixpkgs-fmt
+      #           postgresql
+      #           nixUnstable
+      #           inputs.deploy-rs.defaultPackage.x86_64-linux
+      #         ];
+      #         shell.additional = hsPkgs: with hsPkgs; [ Cabal ];
+      #         # This adds `js-unknown-ghcjs-cabal` to the shell.
+      #         # shell.crossPlatforms = p: [p.ghcjs];
+      #       };
+      #     redirect-to-xpsoasis-wrapper = pkgs.writeShellApplication {
+      #       name = "redirect-to-xpsoasis-wrapped";
+      #       runtimeInputs = [ self.packages.x86_64-linux.default ];
+      #       text = ''
+      #        cd /home/admin
+      #        [ ! -d "/home/admin/redirect-to-xpsoasis" ] && git clone https://github.com/rdataa/redirect-to-xpsoasis
+      #        cd redirect-to-xpsoasis
+      #        ${self.packages.x86_64-linux.default}/bin/redirect-to-xpsoasis
+      #       '';
+      #     };
+      #   })
+      # ];
+      # pkgs = import nixpkgs { system = "x86_64-linux"; inherit overlays; inherit (haskellNix) config; };
+      # flake = pkgs.redirect-to-xpsoasis.flake {};
       flake-deploy-rs = flake-utils-plus.lib.mkFlake {
         inherit self inputs nixosModules;
 
         hosts = {
           hetzner.modules = with nixosModules; [
-            redirect-to-xpsoasis
+            # redirect-to-xpsoasis
             common
             admin
             hardware-hetzner
@@ -63,7 +62,7 @@
         # Change these parameters to server parameters.
         deploy.nodes = {
           my-node = {
-            hostname = "127.0.0.1";
+            hostname = "";
             fastConnection = false;
             profiles = {
               my-profile = {
@@ -77,16 +76,16 @@
         };
       };
 
-    in flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: flake // {
-        packages = flake.packages // {
-          default = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
-          redirect-to-xpsoasis-wrapper = pkgs.redirect-to-xpsoasis-wrapper;
-        };
-        apps = flake.apps // { default = flake.apps."redirect-to-xpsoasis:exe:redirect-to-xpsoasis"; };
+    # in flake-utils.lib.eachSystem [ "x86_64-linux" ] (system: flake // {
+    #     packages = flake.packages // {
+    #       default = flake.packages."redirect-to-xpsoasis:exe:redirect-to-xpsoasis";
+    #       redirect-to-xpsoasis-wrapper = pkgs.redirect-to-xpsoasis-wrapper;
+    #     };
+    #     apps = flake.apps // { default = flake.apps."redirect-to-xpsoasis:exe:redirect-to-xpsoasis"; };
 
-        legacyPackages = pkgs;
-      })// flake-deploy-rs;
-  # in flake-deploy-rs;
+    #     legacyPackages = pkgs;
+    #   })// flake-deploy-rs;
+    in flake-deploy-rs;
 
   # --- Flake Local Nix Configuration ----------------------------
   nixConfig = {
