@@ -52,7 +52,7 @@
 
         hosts = {
           hetzner.modules = with nixosModules; [
-            redirect-to-xpsoasis
+            # redirect-to-xpsoasis
             common
             admin
             hardware-hetzner
