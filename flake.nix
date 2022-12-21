@@ -8,7 +8,7 @@
     url = "github:serokell/deploy-rs";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  outputs = inputs@{ self, nixpkgs, flake-utils, haskellNix, deploy-rs, flake-utils-plus }:
+  outputs = inputs@{ self, nixpkgs, flake-utils, haskellNix, flake-utils-plus, deploy-rs }:
     let
       nixosModules = flake-utils-plus.lib.exportModules (
         nixpkgs.lib.mapAttrsToList (name: value: ./nixosModules/${name}) (builtins.readDir ./nixosModules)
@@ -37,9 +37,7 @@
       #       name = "redirect-to-xpsoasis-wrapped";
       #       runtimeInputs = [ self.packages.x86_64-linux.default ];
       #       text = ''
-      #        cd /home/admin
-      #        [ ! -d "/home/admin/redirect-to-xpsoasis" ] && git clone https://github.com/rdataa/redirect-to-xpsoasis
-      #        cd redirect-to-xpsoasis
+      #        cd /home/xpsoasis/redirect-to-xpsoasis
       #        ${self.packages.x86_64-linux.default}/bin/redirect-to-xpsoasis
       #       '';
       #     };
