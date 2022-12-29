@@ -9,7 +9,7 @@
     description = "rdataa admin";
     extraGroups = [ "wheel" "networkmanager" "docker" ];
     initialPassword = "1234";
-    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDEFWtCBEDhaCfihSg2XiZ+yMTzrWquWG1Tgix+Snrw5Rz8AEaDigy4m72BsT/jMEigEi5Y1u6GznRvn7MMyRFAPZmVvyWUcXpopo5LJ2aryCKeq1DD/aSyEKbrShmgWaIF8nhDQ4VdbNzaXk01Q3iipN76vew7Bze/RtKCGh9+hGfJGIl47qsG6vjnz9V8SWru0CVmco2RPVrEoOs+1AIr2HnoZ9MSZi5hFVnrM26FGxHBOcZIhDWVbq3liDZrALLx6QIr8TPVpKqbXycRPHTZXQWClSH0X7AhYKpxA9KX3JeGKjrJMkG1FiBP/+umgUEgBEtmQUqWooH32t8jmO0jfAWGv559WYA6kndUI4nbJ8dmXkBw6NuhxBHv8uqxA59y7amsDDJHjxFADx6TF2+8h07f+Tjl6k2S45hv/t5oOMiR+cZ3Bj571XMXvcmTakOnRnVnSnXs1QBfn9tKK1ozuswCkUkDEtA9VHM7dm7EcRFdbRMDnFWomXbMmCtwO0U= omoper@roronoa" ];
+    openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCkMLqezObEnh3bNFj8QeyVFoJlRaDgO308rvfR8XE2oLFGrY8gUr6QwWt2P5sROrOskF9XuriUPPs5/jSom2uOdbwxBs1zTkdVUPIog5e81GaGNmS2BMKntD5d9GYI6YESBBBxTFEh6hFkd7GpautRfCPiwcIM1daxHEQsKNCp3fGWqonsIAfLkPgVfNQ0piXN4AR4PFpDSuAPDFlxG8q9K/P/w6OtGq/FcxDbl0e2t54ZDVj/fTqDOiKNDb5GVF1tu/IW/KzPcjLl2GFAcRYrIJaptzZOIuHWLK86jEPI+DpkmpbOWOugKXr9wG/eibdndh8w3vvPH+HUrs4OaPmkVhPkZH+899j1sFBAVE7uL+GFOt0N6GNMFKePcJQMQdkq5bGYV8HeXN6U+UQWr4+/2opmoXduIN8nS68l5GeDzyuCQ0Osa6TN47vQ8I2nd6x3E4c+fWXg908SUcaPpTRii6EU0egrjOFRFl0vwe26owCNSJjzMyto0OsexSEILyE= hhefesto@olimpo" ];
   };
   security.sudo.wheelNeedsPassword = false;
   nix.settings.trusted-users = [ "@wheel" ]; # https://github.com/serokell/deploy-rs/issues/25
