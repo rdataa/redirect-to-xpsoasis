@@ -16,7 +16,8 @@
       environment = {
         YESOD_STATIC_DIR="/home/xpsoasis/redirect-to-xpsoasis/static";
         YESOD_PORT="3000";
-        YESOD_APPROOT="https://rdataa.com";
+        YESOD_APPROOT="https://65.109.136.226";
+        # YESOD_APPROOT="https://rdataa.com";
       };
       serviceConfig = {
         Type = "simple";
@@ -28,22 +29,22 @@
       };
     };
 
-    security.acme.acceptTerms = true;
-    security.acme.defaults.email = "enriquead@rdataa.com";
+    # security.acme.acceptTerms = true;
+    # security.acme.defaults.email = "enriquead@rdataa.com";
 
-    services.nginx = {
-      enable = true;
+    # services.nginx = {
+    #   enable = true;
 
-      virtualHosts."rdataa.com" = {
-        enableACME = true;
-        forceSSL = true;
-        locations = {
-          "/" = {
-            proxyPass = "http://localhost:3000";
-          };
-        };
-      };
-    };
+    #   virtualHosts."rdataa.com" = {
+    #     enableACME = true;
+    #     forceSSL = true;
+    #     locations = {
+    #       "/" = {
+    #         proxyPass = "http://localhost:3000";
+    #       };
+    #     };
+    #   };
+    # };
 
     services.postgresql = {
       enable = true;
